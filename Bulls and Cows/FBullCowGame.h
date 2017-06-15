@@ -10,6 +10,6 @@ public:
 	bool CheckGuessValidity(std::string);
 
 private:
-	int MyCurrentTry;
+	int MyCurrentTry = 1;
 	int MyMaxTries;
 };

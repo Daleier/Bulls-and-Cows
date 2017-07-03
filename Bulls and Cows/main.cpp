@@ -1,9 +1,16 @@
+/*This is the console executable, that makes use of the BullCow class
+This acts ast the view in a MVC pattern, and is responsible for al user interaction.
+For game logic see the FBullCowGame class*/
+
 #include <iostream>
 #include <string>
 #include "FBullCowGame.h"
 
+using FText = std::string;
+using int32 = int;
+
 void PrintIntro();
-std::string GetGuess();
+FText GetGuess();
 void PlayGame();
 bool AskToPlayAgain();
 
@@ -27,18 +34,18 @@ int main()
 void PrintIntro() 
 {
 	//introduce the game
-	constexpr int WORD_LENGTH = 5;
+	constexpr int32 WORD_LENGTH = 5;
 	std::cout << "Welcome to Bulls and Cows, a fun word game.\n";
 	std::cout << "Can you guess the " << WORD_LENGTH << " letter isogram I'm thinking of?\n";
 	std::cout << std::endl;
 }
 
-std::string GetGuess() 
+FText GetGuess() 
 {
-	int CurrentGuess = BCGame.GetCurrentTry();
+	int32 CurrentGuess = BCGame.GetCurrentTry();
 	//get a guess from the player
 	std::cout << "Try " << CurrentGuess << ". Enter your guess: ";
-	std::string Guess = "";
+	FText Guess = "";
 	std::getline(std::cin, Guess);
 	return Guess;
 }
@@ -46,10 +53,10 @@ std::string GetGuess()
 void PlayGame()
 {
 	//loop for the number of turns asking for guesses
-	constexpr int NUMBER_OF_TURNS = 5;
+	constexpr int32 NUMBER_OF_TURNS = 5;
 	// TODO change from for to while loop
-	for (int count = 0;NUMBER_OF_TURNS > count; count++) {
-		std::string Guess = GetGuess(); // TODO make loop checking valid guesses
+	for (int32 count = 0;NUMBER_OF_TURNS > count; count++) {
+		FText Guess = GetGuess(); // TODO make loop checking valid guesses
 
 		//Submit valid guess to the game
 		// Print number of bulls and cows
@@ -65,7 +72,7 @@ void PlayGame()
 bool AskToPlayAgain()
 {
 	std::cout << "Do you want to play again? (y/n) ";
-	std::string Response = "";
+	FText Response = "";
 	std::getline(std::cin, Response);
 	return (Response[0] == 'y' || Response[0] == 'Y'); //exit the application
 }

@@ -4,20 +4,44 @@
 using FString = std::string;
 using int32 = int;
 
-class FBullCowGame {
+// values initialize to 0
+struct FBullCowCount
+{
+	int32 Bulls = 0;
+	int32 Cows = 0;
+};
+
+enum class EWordStatus {
+	OK,
+	Not_Isogram,
+	Wrong_Lenth,
+	Not_Lowercase
+};
+
+enum class EResetStatus
+{
+	No_Hidden_Word,
+	OK
+};
+
+class FBullCowGame 
+{
 public:
 	FBullCowGame(); //constructor
 
-	void Reset();
 	int GetMaxTries() const;
 	int GetCurrentTry() const;
+	int32 GetHiddenWordLength() const;
+
 	bool IsGameWon() const;
-	bool CheckGuessValidity(FString);
-	// create method for checking and countig all the bulls and cows and increasing the turn count 
+	EWordStatus CheckGuessValidity(FString) const;
+
+	EResetStatus Reset();
+	FBullCowCount SubmitGuess(FString);
 
 private:
 	//initialisation in the constructor
 	int32 MyCurrentTry;
-	int32
-		MyMaxTries;
+	int32 MyMaxTries;
+	FString MyHiddenWord;
 };

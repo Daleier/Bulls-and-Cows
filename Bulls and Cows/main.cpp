@@ -10,8 +10,8 @@ using FText = std::string;
 using int32 = int;
 
 void PrintIntro();
-FText GetGuess();
 void PlayGame();
+FText GetGuess();
 bool AskToPlayAgain();
 
 FBullCowGame BCGame; //create a new instance of the game
@@ -34,10 +34,30 @@ int main()
 void PrintIntro() 
 {
 	//introduce the game
-	constexpr int32 WORD_LENGTH = 5;
 	std::cout << "Welcome to Bulls and Cows, a fun word game.\n";
-	std::cout << "Can you guess the " << WORD_LENGTH << " letter isogram I'm thinking of?\n";
+	std::cout << "Can you guess the " <<  BCGame.GetHiddenWordLength() << " letter isogram I'm thinking of?\n";
 	std::cout << std::endl;
+}
+
+void PlayGame()
+{
+	BCGame.Reset();
+	const int32 MaxTries = BCGame.GetMaxTries();
+	//loop for the number of turns asking for guesses
+	// TODO change from for to while loop
+	for (int32 count = 0; MaxTries > count; count++) {
+		FText Guess = GetGuess(); // TODO make loop checking valid guesses
+
+								  //Submit valid guess to the game
+		FBullCowCount BullCowCount = BCGame.SubmitGuess(Guess);
+		// Print number of bulls and cows
+		std::cout << "Bulls = " << BullCowCount.Bulls;
+		std::cout << " Cows = " << BullCowCount.Cows;
+		//repeat the guess back to the player
+		std::cout << std::endl;
+	}
+	//TODO summarise game
+
 }
 
 FText GetGuess() 
@@ -50,24 +70,6 @@ FText GetGuess()
 	return Guess;
 }
 
-void PlayGame()
-{
-	//loop for the number of turns asking for guesses
-	constexpr int32 NUMBER_OF_TURNS = 5;
-	// TODO change from for to while loop
-	for (int32 count = 0;NUMBER_OF_TURNS > count; count++) {
-		FText Guess = GetGuess(); // TODO make loop checking valid guesses
-
-		//Submit valid guess to the game
-		// Print number of bulls and cows
-
-		//repeat the guess back to the player
-		std::cout << "Your guess was: " << Guess << std::endl;
-		std::cout << std::endl;
-	}
-	//TODO summarise game
-
-}
 
 bool AskToPlayAgain()
 {

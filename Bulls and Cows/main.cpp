@@ -47,12 +47,19 @@ void PlayGame()
 {
 	//loop for the number of turns asking for guesses
 	constexpr int NUMBER_OF_TURNS = 5;
+	// TODO change from for to while loop
 	for (int count = 0;NUMBER_OF_TURNS > count; count++) {
-		std::string Guess = GetGuess();
+		std::string Guess = GetGuess(); // TODO make loop checking valid guesses
+
+		//Submit valid guess to the game
+		// Print number of bulls and cows
+
 		//repeat the guess back to the player
 		std::cout << "Your guess was: " << Guess << std::endl;
 		std::cout << std::endl;
 	}
+	//TODO summarise game
+
 }
 
 bool AskToPlayAgain()

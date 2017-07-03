@@ -10,6 +10,7 @@ public:
 	int GetCurrentTry() const;
 	bool IsGameWon() const;
 	bool CheckGuessValidity(std::string);
+	// create method for checking and countig all the bulls and cows and increasing the turn count 
 
 private:
 	//initialisation in the constructor

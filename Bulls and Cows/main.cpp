@@ -43,8 +43,9 @@ void PlayGame()
 {
 	BCGame.Reset();
 	const int32 MaxTries = BCGame.GetMaxTries();
-	//loop for the number of turns asking for guesses
-	for (int32 count = 0; MaxTries > count; count++) {	// TODO change from for to while loop
+	//loop for the number of turns asking for guesses while the game is not won
+	//and there are still tries remaining
+	while (!BCGame.IsGameWon() && BCGame.GetCurrentTry() <= MaxTries ) {	// TODO change from for to while loop
 		FText Guess = GetValidGuess(); // TODO make loop checking valid guesses
 
 
@@ -69,7 +70,7 @@ FText GetValidGuess()
 		std::cout << "Try " << CurrentGuess << ". Enter your guess: ";
 		std::getline(std::cin, Guess);
 
-		EGuessStatus Status = BCGame.CheckGuessValidity(Guess);
+		Status = BCGame.CheckGuessValidity(Guess);
 		switch (Status) {
 		case EGuessStatus::Wrong_Length:
 			std::cout << "Enter a " << BCGame.GetHiddenWordLength() << " letters word.\n";
@@ -80,7 +81,7 @@ FText GetValidGuess()
 			std::cout << "Enter all letters in lowercase.\n";
 			break;
 		default: //valid guess
-			Status = EGuessStatus::OK;
+			break;
 		}
 		std::cout << std::endl;
 	} while (Status != EGuessStatus::OK); //loops until there are no input errors

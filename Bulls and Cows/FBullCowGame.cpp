@@ -36,23 +36,33 @@ bool FBullCowGame::IsGameWon() const
 	return false;
 }
 
-EWordStatus FBullCowGame::CheckGuessValidity(FString) const
+EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
 {
-	return EWordStatus::OK; // TODO make actual error
+	if (false) { //not isogram
+		return EGuessStatus::Not_Isogram;
+	}
+	else if (false) { //not lowercase
+		return EGuessStatus::Not_Lowercase;
+	}
+	else if (Guess.length() != GetHiddenWordLength()) { //length wrong
+		return EGuessStatus::Wrong_Length;
+	}
+	else {
+		return EGuessStatus::OK; 
+	}
 }
 
-// receive valid Guess, increment turn, returns count
-FBullCowCount FBullCowGame::SubmitGuess(FString Guess)
+// receives a VALID Guess, increment turn, returns count
+FBullCowCount FBullCowGame::SubmitValidGuess(FString Guess)
 {
-	// increment turn number
 	MyCurrentTry++;
-
-	//setup turn struct var
 	FBullCowCount FBullCowCount;
 
-	int32 HiddenWordLength = MyHiddenWord.length();
-	//loop checking guess with the hidding word
+	int32 HiddenWordLength = MyHiddenWord.length(); //assuming same length as guess
+
+	//lop all leter in the hidden word
 	for (int32 MHWChar = 0; MHWChar < HiddenWordLength; MHWChar++) {
+		//compare letters against the guess
 		for (int32 GChar = 0; GChar < HiddenWordLength; GChar++) {
 			if (Guess[GChar] == MyHiddenWord[MHWChar]) {
 				if (MHWChar == GChar) { // increments bulls

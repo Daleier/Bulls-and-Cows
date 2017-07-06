@@ -1,10 +1,10 @@
 #pragma once
 #include <string>
 
+//unreal engine syntax
 using FString = std::string;
 using int32 = int;
 
-// values initialize to 0
 struct FBullCowCount
 {
 	int32 Bulls = 0;

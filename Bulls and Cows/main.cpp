@@ -1,11 +1,12 @@
 /*This is the console executable, that makes use of the BullCow class
 This acts ast the view in a MVC pattern, and is responsible for al user interaction.
 For game logic see the FBullCowGame class*/
-
+#pragma once
 #include <iostream>
 #include <string>
 #include "FBullCowGame.h"
 
+//unreal engine syntax
 using FText = std::string;
 using int32 = int;
 
@@ -17,7 +18,6 @@ void PrintGameSummary();
 
 FBullCowGame BCGame; //create a new instance of the game
 
-//start of the aplication
 int main()
 {
 	bool bPlayAgain;
@@ -46,19 +46,18 @@ void PrintIntro()
 	std::cout << "Can you guess the " <<  BCGame.GetHiddenWordLength() << " letter isogram I'm thinking of?\n\n";
 }
 
+/*
+Controls the general flow of a single the game.
+*/
 void PlayGame()
 {
 	BCGame.Reset();
 	const int32 MaxTries = BCGame.GetMaxTries();
-
 	//loop for the number of turns asking for guesses while the game is not won
 	//and there are still tries remaining
-	while (!BCGame.IsGameWon() && BCGame.GetCurrentTry() <= MaxTries ) {	// TODO change from for to while loop
-		FText Guess = GetValidGuess(); // TODO make loop checking valid guesses
-
-		//Submit valid guess to the game
+	while (!BCGame.IsGameWon() && BCGame.GetCurrentTry() <= MaxTries ) {
+		FText Guess = GetValidGuess(); 
 		FBullCowCount BullCowCount = BCGame.SubmitValidGuess(Guess);
-
 		std::cout << "Bulls = " << BullCowCount.Bulls;
 		std::cout << " - Cows = " << BullCowCount.Cows << "\n\n";
 	}
@@ -72,6 +71,7 @@ FText GetValidGuess()
 
 	do {
 		int32 CurrentGuess = BCGame.GetCurrentTry();
+
 		//get a guess from the player
 		std::cout << "Try " << BCGame.GetCurrentTry() << " of " << BCGame.GetMaxTries() << ". Enter your guess: ";
 		std::getline(std::cin, Guess);
@@ -92,11 +92,12 @@ FText GetValidGuess()
 		}
 		std::cout << std::endl;
 	} while (Status != EGuessStatus::OK); //loops until there are no input errors
-
 	return Guess;
 }
 
-
+/*
+Asks the player if he wants to play again.
+*/
 bool AskToPlayAgain()
 {
 	std::cout << "Do you want to play again using the same hidden word? (y/n) ";
@@ -105,6 +106,9 @@ bool AskToPlayAgain()
 	return (Response[0] == 'y' || Response[0] == 'Y'); //exit the application
 }
 
+/*
+Prints a summary of every game after its finished.
+*/
 void PrintGameSummary() 
 {
 	if (BCGame.IsGameWon()) {

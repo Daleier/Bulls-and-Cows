@@ -1,5 +1,7 @@
+#pragma once
 #include "FBullCowGame.h"
 #include <map>
+//unreal engine syntax
 #define TMap std::map
 
 FBullCowGame::FBullCowGame()
@@ -12,7 +14,10 @@ int FBullCowGame::GetCurrentTry() const{ return MyCurrentTry; }
 int32 FBullCowGame::GetHiddenWordLength() const{ return MyHiddenWord.length(); }
 bool FBullCowGame::IsGameWon() const{ return bGameIsWon; }
 
-
+/*
+Reinitializes the status of the game.
+TODO add more hidden words (isograms).
+*/
 EResetStatus FBullCowGame::Reset()
 {
 	const FString HIDDEN_WORD = "planet";
@@ -28,7 +33,6 @@ int FBullCowGame::GetMaxTries() const {
 	TMap<int32, int32> WordLengthToMaxTries{ {3,4},{4,7},{5,10},{6,15},{7,15} }; //first number is the length of the hidden word, second is the number of turns
 	return WordLengthToMaxTries[MyHiddenWord.length()]; 
 }
-
 
 EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
 {
@@ -46,13 +50,12 @@ EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
 	}
 }
 
-// receives a VALID Guess, increment turn, returns count
 FBullCowCount FBullCowGame::SubmitValidGuess(FString Guess)
 {
 	MyCurrentTry++;
 	FBullCowCount BullCowCount;
 
-	int32 HiddenWordLength = MyHiddenWord.length(); //assuming same length as guess
+	int32 HiddenWordLength = MyHiddenWord.length(); //assuming same length as guess word
 
 	//lop all leter in the hidden word
 	for (int32 MHWChar = 0; MHWChar < HiddenWordLength; MHWChar++) {
@@ -79,9 +82,7 @@ FBullCowCount FBullCowGame::SubmitValidGuess(FString Guess)
 }
 
 bool FBullCowGame::IsIsogram(FString Word) const
-{
-	//create table
-	
+{	
 	if (Word.length() <= 1) { return true; }
 
 	TMap<char, bool> LetterSeen; //setup map

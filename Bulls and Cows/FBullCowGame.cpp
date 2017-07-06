@@ -78,10 +78,21 @@ FBullCowCount FBullCowGame::SubmitValidGuess(FString Guess)
 bool FBullCowGame::IsIsogram(FString Word) const
 {
 	//create table
-	//loop every letter of word
-		//if letter is already on table return false
-		//else put letter on table
-	//if loops ends without false return true
+	
+	if (Word.length() <= 1) { return true; }
+
+	TMap<char, bool> LetterSeen; //setup map
+	for (auto Letter : Word)
+	{
+		Letter = tolower(Letter);
+		if (LetterSeen[Letter]) {
+			return false;
+		}
+		else {
+			LetterSeen[Letter] = true;
+		}
+
+	}
 	return true;
 }
 

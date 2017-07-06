@@ -66,6 +66,7 @@ FText GetValidGuess()
 	FText Guess = "";
 
 	do {
+
 		int32 CurrentGuess = BCGame.GetCurrentTry();
 		//get a guess from the player
 		std::cout << "Try " << CurrentGuess << ". Enter your guess: ";

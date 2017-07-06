@@ -8,7 +8,6 @@ FBullCowGame::FBullCowGame()
 }
 
 //getters
-int FBullCowGame::GetMaxTries() const { return MyMaxTries; }
 int FBullCowGame::GetCurrentTry() const{ return MyCurrentTry; }
 int32 FBullCowGame::GetHiddenWordLength() const{ return MyHiddenWord.length(); }
 bool FBullCowGame::IsGameWon() const{ return bGameIsWon; }
@@ -16,14 +15,18 @@ bool FBullCowGame::IsGameWon() const{ return bGameIsWon; }
 
 EResetStatus FBullCowGame::Reset()
 {
-	constexpr int32 MAX_TRIES = 10;
 	const FString HIDDEN_WORD = "planet";
 
 	bGameIsWon = false;
-	MyMaxTries = MAX_TRIES;
+	MyMaxTries = GetMaxTries();
 	MyCurrentTry = 1;
 	MyHiddenWord = HIDDEN_WORD;
 	return EResetStatus::OK;
+}
+
+int FBullCowGame::GetMaxTries() const { 
+	TMap<int32, int32> WordLengthToMaxTries{ {3,4},{4,7},{5,10},{6,15},{7,15} }; //first number is the length of the hidden word, second is the number of turns
+	return WordLengthToMaxTries[MyHiddenWord.length()]; 
 }
 
 

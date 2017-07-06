@@ -44,6 +44,7 @@ void PlayGame()
 {
 	BCGame.Reset();
 	const int32 MaxTries = BCGame.GetMaxTries();
+
 	//loop for the number of turns asking for guesses while the game is not won
 	//and there are still tries remaining
 	while (!BCGame.IsGameWon() && BCGame.GetCurrentTry() <= MaxTries ) {	// TODO change from for to while loop

@@ -78,6 +78,7 @@ FText GetValidGuess()
 			break;
 		case EGuessStatus::Not_Isogram:
 			std::cout << "You have to enter an isogram.\n";
+			break;
 		case EGuessStatus::Not_Lowercase:
 			std::cout << "Enter all letters in lowercase.\n";
 			break;

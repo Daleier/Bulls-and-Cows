@@ -32,10 +32,10 @@ EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
 	if (!IsIsogram(Guess)) { //not isogram
 		return EGuessStatus::Not_Isogram;
 	}
-	else if (false) { //not lowercase TODO implement new method
+	else if (!IsLowercase(Guess)) { //not lowercase TODO implement new method
 		return EGuessStatus::Not_Lowercase;
 	}
-	else if (Guess.length() != GetHiddenWordLength()) { //length wrong TODO impelement new method
+	else if (Guess.length() != GetHiddenWordLength()) { //length wrong
 		return EGuessStatus::Wrong_Length;
 	}
 	else {
@@ -92,6 +92,18 @@ bool FBullCowGame::IsIsogram(FString Word) const
 			LetterSeen[Letter] = true;
 		}
 
+	}
+	return true;
+}
+
+bool FBullCowGame::IsLowercase(FString Word) const
+{
+	if (Word.length() <= 1) { return true; }
+
+	for (auto Letter : Word) {
+		if (!islower(Letter)) { //if its cap return false
+			return false;
+		}
 	}
 	return true;
 }

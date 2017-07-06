@@ -66,7 +66,6 @@ FText GetValidGuess()
 	FText Guess = "";
 
 	do {
-
 		int32 CurrentGuess = BCGame.GetCurrentTry();
 		//get a guess from the player
 		std::cout << "Try " << CurrentGuess << ". Enter your guess: ";
@@ -78,7 +77,7 @@ FText GetValidGuess()
 			std::cout << "Enter a " << BCGame.GetHiddenWordLength() << " letters word.\n";
 			break;
 		case EGuessStatus::Not_Isogram:
-			std::cout << "You have to enter an isogram.\n";
+			std::cout << "You have to enter an isogram (no repeating leaters).\n";
 			break;
 		case EGuessStatus::Not_Lowercase:
 			std::cout << "Enter all letters in lowercase.\n";
